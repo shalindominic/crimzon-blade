@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  /* Colors - Brand Bible */
+  --color-void: #0B0B0B;
+  --color-iron: #2A2A2A;
+  --color-ash: #9A9A9A;
+  --color-crimson: #8B0000;
+  --color-gold: #C7A14A;
+
+  /* Aliases for compatibility */
+  --color-charcoal: #0B0B0B;
+  --color-dark-grey: #2A2A2A;
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-oswald: var(--font-oswald);
+
+  /* Ease */
+  --ease-slow: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Global Reset for Dark Theme */
+:root {
+  --background: var(--color-charcoal);
+  --foreground: #ededed;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Utility to hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
