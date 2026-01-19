@@ -6,7 +6,7 @@ import { VaultTeaser } from "@/components/sections/VaultTeaser";
 
 export default function Home() {
   return (
-    <main className="bg-charcoal min-h-screen flex flex-col relative w-full overflow-hidden">
+    <main className="bg-charcoal flex-grow w-full flex flex-col">
       <Hero />
       <LatestDrop />
       <RaritySystem />

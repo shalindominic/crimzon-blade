@@ -53,7 +53,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl flex flex-col text-white w-screen h-[100svh] overflow-y-auto overscroll-contain"
+                    className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl flex flex-col text-white h-[100svh] overflow-y-auto overscroll-contain"
                     style={{
                         paddingTop: "env(safe-area-inset-top)",
                         paddingBottom: "env(safe-area-inset-bottom)",
@@ -74,59 +74,59 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     </header>
 
                     {/* SCROLLABLE CONTENT */}
-                    <div className="flex-1 flex flex-col px-8 py-10 overflow-y-auto">
-                        <nav className="flex flex-col space-y-8">
+                    <div className="flex-1 flex flex-col w-full px-8 py-10 overflow-y-auto">
+                        <nav className="flex flex-col w-full gap-y-8">
                             {/* MAIN LINKS */}
-                            <div className="flex flex-col space-y-6">
+                            <div className="flex flex-col w-full gap-y-6">
                                 <Link
                                     href="/crimzon"
                                     onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors"
+                                    className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
                                 >
                                     CRIMZON
                                 </Link>
                                 <Link
                                     href="/the-blade"
                                     onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors"
+                                    className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
                                 >
                                     THE BLADE
                                 </Link>
                                 <Link
                                     href="/vault"
                                     onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors"
+                                    className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
                                 >
                                     VAULT
                                 </Link>
                                 <Link
                                     href="/drops"
                                     onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors"
+                                    className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
                                 >
                                     DROPS
                                 </Link>
                             </div>
 
-                            <div className="w-16 h-[1px] bg-crimson/50 my-2" />
+                            <div className="w-16 h-[1px] bg-crimson/50 my-2 shrink-0" />
 
                             {/* AUTH & ACTIONS */}
-                            <div className="flex flex-col space-y-6">
+                            <div className="flex flex-col w-full gap-y-6">
                                 <SignedOut>
                                     <SignInButton mode="modal">
-                                        <button onClick={onClose} className="text-left font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors">
+                                        <button onClick={onClose} className="text-left font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
                                             ENTER SYSTEM / LOGIN
                                         </button>
                                     </SignInButton>
                                 </SignedOut>
 
                                 <SignedIn>
-                                    <Link href="/account" onClick={onClose} className="font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors">
+                                    <Link href="/account" onClick={onClose} className="block font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
                                         MY PROFILE
                                     </Link>
                                     <button
                                         onClick={() => signOut(() => onClose())}
-                                        className="text-left font-oswald text-lg text-ash hover:text-white uppercase transition-colors tracking-widest"
+                                        className="text-left font-oswald text-lg text-ash hover:text-white uppercase transition-colors tracking-widest shrink-0"
                                     >
                                         DISCONNECT
                                     </button>
@@ -134,11 +134,11 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                             </div>
 
                             {/* PRIMARY CTA */}
-                            <div className="pt-8 pb-12">
+                            <div className="pt-8 pb-12 shrink-0">
                                 <Link
                                     href="/armory"
                                     onClick={onClose}
-                                    className="inline-block w-full text-center border border-white/20 bg-white/5 py-5 font-oswald text-2xl tracking-widest hover:bg-crimson hover:border-crimson transition-all uppercase"
+                                    className="block w-full text-center border border-white/20 bg-white/5 py-5 font-oswald text-2xl tracking-widest hover:bg-crimson hover:border-crimson transition-all uppercase"
                                 >
                                     ENTER THE ARMORY
                                 </Link>
