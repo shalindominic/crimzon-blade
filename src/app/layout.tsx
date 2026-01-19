@@ -24,6 +24,7 @@ const oswald = Oswald({
 export const metadata: Metadata = {
   title: "CRIMZON BLADE",
   description: "Forged in Silence.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover",
 };
 
 export default function RootLayout({

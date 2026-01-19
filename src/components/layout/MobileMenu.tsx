@@ -59,95 +59,97 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         paddingBottom: "env(safe-area-inset-bottom)",
                     }}
                 >
-                    {/* STICKY HEADER */}
-                    <header className="sticky top-0 z-50 flex h-20 items-center justify-between px-6 bg-black/50 backdrop-blur-md border-b border-white/10 shrink-0">
-                        <span className="font-oswald text-xl font-bold tracking-widest uppercase">
-                            Crimzon Blade
-                        </span>
-                        <button
-                            onClick={onClose}
-                            className="p-2 -mr-2 text-white hover:text-crimson transition-colors"
-                            aria-label="Close Menu"
-                        >
-                            <IconClose />
-                        </button>
-                    </header>
+                    {/* SCROLLABLE CONTENT WRAPPER */}
+                    <div className="flex flex-col w-full min-h-full">
+                        {/* STICKY HEADER */}
+                        <header className="sticky top-0 z-[60] flex h-20 items-center justify-between px-6 bg-black/80 backdrop-blur-md border-b border-white/10 shrink-0">
+                            <span className="font-oswald text-xl font-bold tracking-widest uppercase">
+                                Crimzon Blade
+                            </span>
+                            <button
+                                onClick={onClose}
+                                className="p-2 -mr-2 text-white hover:text-crimson transition-colors"
+                                aria-label="Close Menu"
+                            >
+                                <IconClose />
+                            </button>
+                        </header>
 
-                    {/* SCROLLABLE CONTENT */}
-                    <div className="flex-1 flex flex-col w-full px-8 py-10 overflow-y-auto">
-                        <nav className="flex flex-col w-full gap-y-8">
-                            {/* MAIN LINKS */}
-                            <div className="flex flex-col w-full gap-y-6">
-                                <Link
-                                    href="/crimzon"
-                                    onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
-                                >
-                                    CRIMZON
-                                </Link>
-                                <Link
-                                    href="/the-blade"
-                                    onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
-                                >
-                                    THE BLADE
-                                </Link>
-                                <Link
-                                    href="/vault"
-                                    onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
-                                >
-                                    VAULT
-                                </Link>
-                                <Link
-                                    href="/drops"
-                                    onClick={onClose}
-                                    className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
-                                >
-                                    DROPS
-                                </Link>
-                            </div>
-
-                            <div className="w-16 h-[1px] bg-crimson/50 my-2 shrink-0" />
-
-                            {/* AUTH & ACTIONS */}
-                            <div className="flex flex-col w-full gap-y-6">
-                                <SignedOut>
-                                    <SignInButton mode="modal">
-                                        <button onClick={onClose} className="text-left font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
-                                            ENTER SYSTEM / LOGIN
-                                        </button>
-                                    </SignInButton>
-                                </SignedOut>
-
-                                <SignedIn>
-                                    <Link href="/account" onClick={onClose} className="block font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
-                                        MY PROFILE
-                                    </Link>
-                                    <button
-                                        onClick={() => signOut(() => onClose())}
-                                        className="text-left font-oswald text-lg text-ash hover:text-white uppercase transition-colors tracking-widest shrink-0"
+                        <div className="flex-1 flex flex-col w-full px-8 py-10 pb-32">
+                            <nav className="flex flex-col w-full gap-y-8">
+                                {/* MAIN LINKS */}
+                                <div className="flex flex-col w-full gap-y-6">
+                                    <Link
+                                        href="/crimzon"
+                                        onClick={onClose}
+                                        className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
                                     >
-                                        DISCONNECT
-                                    </button>
-                                </SignedIn>
-                            </div>
+                                        CRIMZON
+                                    </Link>
+                                    <Link
+                                        href="/the-blade"
+                                        onClick={onClose}
+                                        className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
+                                    >
+                                        THE BLADE
+                                    </Link>
+                                    <Link
+                                        href="/vault"
+                                        onClick={onClose}
+                                        className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
+                                    >
+                                        VAULT
+                                    </Link>
+                                    <Link
+                                        href="/drops"
+                                        onClick={onClose}
+                                        className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
+                                    >
+                                        DROPS
+                                    </Link>
+                                </div>
 
-                            {/* PRIMARY CTA */}
-                            <div className="pt-8 pb-12 shrink-0">
-                                <Link
-                                    href="/armory"
-                                    onClick={onClose}
-                                    className="block w-full text-center border border-white/20 bg-white/5 py-5 font-oswald text-2xl tracking-widest hover:bg-crimson hover:border-crimson transition-all uppercase"
-                                >
-                                    ENTER THE ARMORY
-                                </Link>
-                            </div>
-                        </nav>
+                                <div className="w-16 h-[1px] bg-crimson/50 my-2 shrink-0" />
 
-                        {/* FOOTER DECORATION */}
-                        <div className="mt-auto pt-6 border-t border-white/5 text-center shrink-0">
-                            <p className="text-xs text-white/20 font-mono tracking-[0.2em]">FORGED IN SILENCE</p>
+                                {/* AUTH & ACTIONS */}
+                                <div className="flex flex-col w-full gap-y-6">
+                                    <SignedOut>
+                                        <SignInButton mode="modal">
+                                            <button onClick={onClose} className="text-left font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
+                                                ENTER SYSTEM / LOGIN
+                                            </button>
+                                        </SignInButton>
+                                    </SignedOut>
+
+                                    <SignedIn>
+                                        <Link href="/account" onClick={onClose} className="block font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
+                                            MY PROFILE
+                                        </Link>
+                                        <button
+                                            onClick={() => signOut(() => onClose())}
+                                            className="text-left font-oswald text-lg text-ash hover:text-white uppercase transition-colors tracking-widest shrink-0"
+                                        >
+                                            DISCONNECT
+                                        </button>
+                                    </SignedIn>
+                                </div>
+
+                                {/* PRIMARY CTA */}
+                                <div className="pt-8 pb-12 shrink-0">
+                                    <Link
+                                        href="/armory"
+                                        onClick={onClose}
+                                        className="block w-full text-center border border-white/20 bg-white/5 py-5 font-oswald text-2xl tracking-widest hover:bg-crimson hover:border-crimson transition-all uppercase"
+                                    >
+                                        ENTER THE ARMORY
+                                    </Link>
+                                </div>
+                            </nav>
+
+                            {/* FOOTER DECORATION */}
+                            <div className="mt-auto pt-6 border-t border-white/5 text-center shrink-0">
+                                <p className="text-xs text-white/20 font-mono tracking-[0.2em]">FORGED IN SILENCE</p>
+                            </div>
                         </div>
                     </div>
                 </motion.div>
