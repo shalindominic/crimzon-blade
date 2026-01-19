@@ -41,7 +41,7 @@ export default function CrimzonPage() {
                                 Born from the static of the old world, Crimzon represents the chaotic energy of rebellion focused into a singular point.
                             </p>
                             <p>
-                                It is said that every artifact in the Armory contains a shard of Crimzon's code. To possess the gear is to invite the entity into your reality.
+                                It is said that every artifact in the Armory contains a shard of Crimzon&apos;s code. To possess the gear is to invite the entity into your reality.
                             </p>
                             <p>
                                 The Brotherhood of the Blade serves as the keepers of this entity, ensuring its power remains contained within the rituals of the drop.

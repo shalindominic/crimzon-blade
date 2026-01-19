@@ -11,6 +11,7 @@ const STATS_QUERY = groq`{
 }`;
 
 export default async function AdminPage() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const stats = await sanityFetch<any>({ query: STATS_QUERY });
 
     return (
@@ -70,6 +71,7 @@ export default async function AdminPage() {
     );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StatCard({ label, value, sub, accent = false, href }: any) {
     return (
         <Link href={href || "#"}>

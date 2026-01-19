@@ -34,7 +34,7 @@ export async function revokeClaimCode(id: string) {
         await writeClient.patch(id).set({ status: "revoked" }).commit();
         revalidatePath("/admin/codes");
         return { success: true };
-    } catch (error) {
+    } catch {
         return { success: false, error: "Failed to revoke." };
     }
 }
@@ -44,7 +44,7 @@ export async function updateOrderStatus(id: string, status: string) {
         await writeClient.patch(id).set({ status }).commit();
         revalidatePath("/admin/orders");
         return { success: true };
-    } catch (error) {
+    } catch {
         return { success: false, error: "Failed to update ritual." };
     }
 }

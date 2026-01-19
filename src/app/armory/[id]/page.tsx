@@ -5,6 +5,7 @@ import { ProductDetailsClient } from "./ProductDetailsClient";
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const product = await sanityFetch<any>({
         query: PRODUCT_BY_ID_QUERY,
         params: { id }

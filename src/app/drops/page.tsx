@@ -3,6 +3,7 @@ import { ALL_DROPS_QUERY } from "@/sanity/lib/queries";
 import { DropsClient } from "./DropsClient";
 
 export default async function DropsPage() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const drops = await sanityFetch<any[]>({ query: ALL_DROPS_QUERY });
     const nextDrop = drops.length > 0 ? drops[0] : null;
 

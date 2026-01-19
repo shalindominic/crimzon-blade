@@ -74,7 +74,10 @@ export function CartDrawer() {
                                         {/* IMAGE */}
                                         <div className="w-24 h-32 bg-white/5 border border-white/10 relative overflow-hidden flex-shrink-0">
                                             {item.image ? (
-                                                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                                <>
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                                </>
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-gray-700 font-oswald">IMG</div>
                                             )}

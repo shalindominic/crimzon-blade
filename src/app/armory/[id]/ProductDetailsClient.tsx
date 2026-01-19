@@ -6,6 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/Button";
 
 interface ProductDetailsClientProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     product: any;
 }
 
@@ -44,11 +45,14 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                 >
                     <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-black/80 ${isLegendary ? "group-hover:bg-gold/5" : "group-hover:bg-crimson/5"} transition-colors duration-500`} />
                     <div className="absolute top-4 left-4 text-xs font-mono text-gray-500">
-                        FIG. 001 // VISUAL_FEED
+                        FIG. 001 {`//`} VISUAL_FEED
                     </div>
 
                     {product.imageUrl ? (
-                        <img src={product.imageUrl} alt={product.name} className="relative z-10 max-h-[80%] object-contain drop-shadow-2xl" />
+                        <>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={product.imageUrl} alt={product.name} className="relative z-10 max-h-[80%] object-contain drop-shadow-2xl" />
+                        </>
                     ) : (
                         <div className="text-9xl font-oswald font-bold text-white/5 tracking-widest rotate-90 select-none">
                             {product.name.split(" ")[0]}
@@ -66,7 +70,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
                         <div className={`inline-block px-3 py-1 mb-4 border text-xs font-oswald uppercase tracking-widest ${isLegendary ? "border-gold text-gold" : "border-crimson text-crimson"}`}>
-                            {product.rarity} // {product.edition}
+                            {product.rarity} {`//`} {product.edition}
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-oswald font-bold text-white uppercase tracking-tighter mb-2">
@@ -94,7 +98,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                                 Archive Lore
                             </h3>
                             <p className="text-gray-400 font-sans italic text-sm">
-                                "{product.lore}"
+                                &quot;{product.lore}&quot;
                             </p>
                         </div>
 
@@ -107,8 +111,8 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                                             key={size}
                                             onClick={() => setSelectedSize(size)}
                                             className={`w-12 h-12 flex items-center justify-center border transition-all duration-300 font-oswald ${selectedSize === size
-                                                    ? "bg-white text-black border-white"
-                                                    : "border-white/20 text-gray-500 hover:border-white hover:text-white"
+                                                ? "bg-white text-black border-white"
+                                                : "border-white/20 text-gray-500 hover:border-white hover:text-white"
                                                 }`}
                                         >
                                             {size}

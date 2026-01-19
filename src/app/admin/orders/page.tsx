@@ -5,6 +5,7 @@ import { OrderRow } from "./OrderRow";
 export const dynamic = 'force-dynamic';
 
 export default async function OrdersPage() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const orders = await sanityFetch<any[]>({
         query: groq`*[_type == "order"] | order(_createdAt desc)`
     });

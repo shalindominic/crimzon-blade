@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { generateClaimCode } from "../actions";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function GeneratorForm({ products }: { products: any[] }) {
     const [prefix, setPrefix] = useState("CRIMZON");
     const [selectedProduct, setSelectedProduct] = useState(products[0]?._id || "");

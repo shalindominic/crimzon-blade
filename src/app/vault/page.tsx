@@ -71,7 +71,7 @@ export default function VaultPage() {
                                             {item.name}
                                         </h3>
                                         <p className="text-xs text-gray-500 font-mono mt-2 uppercase">
-                                            {item.rarity} // {item.type}
+                                            {item.rarity} {`//`} {item.type}
                                         </p>
                                     </>
                                 )}

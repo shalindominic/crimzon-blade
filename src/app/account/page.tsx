@@ -9,6 +9,7 @@ export default function AccountPage() {
     const [claimCode, setClaimCode] = useState("");
     const [status, setStatus] = useState<"IDLE" | "VERIFYING" | "SUCCESS" | "ERROR">("IDLE");
     const [message, setMessage] = useState("");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [claimedItem, setClaimedItem] = useState<any>(null);
 
     const handleClaim = async (e: React.FormEvent) => {
@@ -36,7 +37,7 @@ export default function AccountPage() {
                 setStatus("ERROR");
                 setMessage(data.message || "VERIFICATION FAILED");
             }
-        } catch (error) {
+        } catch {
             setStatus("ERROR");
             setMessage("SYSTEM FAILURE");
         }
@@ -52,6 +53,7 @@ export default function AccountPage() {
                 {/* Profile Header */}
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-16 border-b border-white/10 pb-8">
                     <div className="flex items-center gap-6">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={user.imageUrl}
                             alt={user.fullName || "User"}
@@ -62,7 +64,7 @@ export default function AccountPage() {
                                 {user.fullName || user.username || "COLLECTOR"}
                             </h1>
                             <p className="text-ash font-sans tracking-widest uppercase mt-2 text-xs md:text-sm">
-                                ID: {user.id} // RANK: INITIATE
+                                ID: {user.id} {`//`} RANK: INITIATE
                             </p>
                         </div>
                     </div>
@@ -133,7 +135,10 @@ export default function AccountPage() {
                                     {claimedItem && (
                                         <div className="flex items-center gap-4 bg-void p-4 border border-white/10">
                                             {claimedItem.product?.imageUrl && (
-                                                <img src={claimedItem.product.imageUrl} className="w-16 h-16 object-cover" alt="Artifact" />
+                                                <>
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img src={claimedItem.product.imageUrl} className="w-16 h-16 object-cover" alt="Artifact" />
+                                                </>
                                             )}
                                             <div>
                                                 <div className="text-white font-bold font-oswald uppercase">{claimedItem.product?.name}</div>

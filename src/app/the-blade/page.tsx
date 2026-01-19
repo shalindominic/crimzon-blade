@@ -24,7 +24,7 @@ export default function TheBladePage() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    <p>"We do not speak. We build."</p>
+                    <p>&quot;We do not speak. We build.&quot;</p>
                     <p>
                         Crimzon Blade was founded on the principle that luxury is silence. In a world of noise, we forge armor for the quiet few.
                         Those who move in the shadows. Those who understand that power does not need to shout.

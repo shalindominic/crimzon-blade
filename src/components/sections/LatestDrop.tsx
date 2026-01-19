@@ -19,7 +19,7 @@ export function LatestDrop() {
                     >
                         <h3 className="text-crimson font-oswald tracking-widest text-sm mb-2">LATEST DROP</h3>
                         <h2 className="text-4xl md:text-6xl font-oswald font-bold text-white uppercase tracking-tight">
-                            Phantom <br /> Jacket <span className="text-gray-600">// 001</span>
+                            Phantom <br /> Jacket <span className="text-gray-600">{`//`} 001</span>
                         </h2>
                         <p className="mt-6 text-gray-400 font-sans leading-relaxed max-w-md">
                             Constructed from ballistic nylon. Limited run of 300 units.

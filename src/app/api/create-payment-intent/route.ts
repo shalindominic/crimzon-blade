@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
         // Here we will just trust the passed price for the MVP but acknowledging the risk
 
         let total = 0;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         items.forEach((item: any) => {
             total += item.price * item.quantity;
         });

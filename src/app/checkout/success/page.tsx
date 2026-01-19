@@ -10,7 +10,7 @@ export default function SuccessPage() {
 
     useEffect(() => {
         clearCart();
-    }, []);
+    }, [clearCart]);
 
     return (
         <div className="min-h-screen bg-charcoal flex items-center justify-center px-6">

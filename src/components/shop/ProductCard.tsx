@@ -41,7 +41,7 @@ export function ProductCard({ product }: { product: ProductProps }) {
                 "absolute top-4 left-4 text-xs font-oswald uppercase tracking-widest px-2 py-1 border z-10",
                 rarityColors[product.rarity]
             )}>
-                {product.rarity} // {product.edition}
+                {product.rarity} {`//`} {product.edition}
             </div>
 
             {/* Image Container */}

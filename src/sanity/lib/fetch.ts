@@ -1,4 +1,4 @@
-import { createClient, type QueryParams } from "next-sanity";
+import { type QueryParams } from "next-sanity";
 import { client } from "./client";
 
 export async function sanityFetch<QueryResponse>({

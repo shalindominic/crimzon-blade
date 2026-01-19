@@ -2,7 +2,7 @@
 
 import { useCart } from "@/context/CartContext"; // We need this for the left column summary
 import CheckoutClient from "./CheckoutClient";
-import Image from "next/image";
+
 
 export default function CheckoutPage() {
     const { items, subtotal } = useCart();
@@ -11,7 +11,7 @@ export default function CheckoutPage() {
         <div className="min-h-screen bg-charcoal pt-32 pb-20 px-6">
             <div className="container mx-auto max-w-6xl">
                 <h1 className="text-4xl md:text-6xl font-oswald font-bold text-white uppercase tracking-tighter mb-16 border-b border-white/10 pb-8">
-                    The Dark Ritual <span className="text-crimson text-xl align-top font-mono ml-4">// PAYMENT_GATEWAY</span>
+                    The Dark Ritual <span className="text-crimson text-xl align-top font-mono ml-4">{`// PAYMENT_GATEWAY`}</span>
                 </h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -26,6 +26,7 @@ export default function CheckoutPage() {
                                 {items.map((item) => (
                                     <div key={item.id} className="flex gap-4 border-b border-white/5 pb-4">
                                         <div className="w-20 h-24 bg-black border border-white/10 flex-shrink-0 overflow-hidden">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
                                             {item.image && <img src={item.image} alt={item.name} className="w-full h-full object-cover" />}
                                         </div>
                                         <div className="flex-grow">
@@ -34,7 +35,7 @@ export default function CheckoutPage() {
                                                 <span className="text-as font-mono text-sm">${item.price * item.quantity}</span>
                                             </div>
                                             <div className="text-crimson text-xs font-mono uppercase mt-1">
-                                                Size: {item.size} // Qty: {item.quantity}
+                                                Size: {item.size} {`//`} Qty: {item.quantity}
                                             </div>
                                         </div>
                                     </div>

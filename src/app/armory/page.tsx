@@ -4,6 +4,7 @@ import { ArmoryClient } from "./ArmoryClient";
 
 export default async function ArmoryPage() {
     // This runs on the server!
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const products = await sanityFetch<any[]>({ query: ALL_PRODUCTS_QUERY });
 
     return (

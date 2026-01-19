@@ -10,12 +10,13 @@ const stripePromise = getStripe();
 
 export default function CheckoutClient() {
     const [clientSecret, setClientSecret] = useState<string>("");
-    const { items, subtotal } = useCart();
+    const { items } = useCart();
     const [initializing, setInitializing] = useState(true);
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         if (items.length === 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setInitializing(false);
             return;
         }

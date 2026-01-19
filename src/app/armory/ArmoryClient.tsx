@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ProductCard } from "@/components/shop/ProductCard";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ArmoryClient({ products }: { products: any[] }) {
     return (
         <div className="container mx-auto">

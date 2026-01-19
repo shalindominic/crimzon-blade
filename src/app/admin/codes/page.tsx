@@ -3,10 +3,12 @@ import { groq } from "next-sanity";
 import { GeneratorForm } from "./GeneratorForm";
 
 export default async function CodesPage() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const codes = await sanityFetch<any[]>({
         query: groq`*[_type == "claimCode"] | order(_createdAt desc)`
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const products = await sanityFetch<any[]>({
         query: groq`*[_type == "product"] { _id, name }`
     });
@@ -38,8 +40,8 @@ export default async function CodesPage() {
                                     <td className="p-4">{code.edition}</td>
                                     <td className="p-4">
                                         <span className={`px-2 py-1 text-[10px] uppercase border ${code.status === 'active' ? 'border-green-500 text-green-500' :
-                                                code.status === 'claimed' ? 'border-crimson text-crimson' :
-                                                    'border-gray-500 text-gray-500'
+                                            code.status === 'claimed' ? 'border-crimson text-crimson' :
+                                                'border-gray-500 text-gray-500'
                                             }`}>
                                             {code.status}
                                         </span>
