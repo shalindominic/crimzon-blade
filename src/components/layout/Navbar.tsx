@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SignInButton, SignedIn, SignedOut, UserButton, useClerk } from "@clerk/nextjs";
 import { useState } from "react";
-import { useCart } from "@/context/CartContext"; // IMPORT CART CONTEXT
+import { useCart } from "@/context/CartContext";
 
 const links = [
     { name: "ARMORY", href: "/armory" },
@@ -24,115 +24,117 @@ export function Navbar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const { signOut } = useClerk();
-    const { openCart, items } = useCart(); // USE CART HOOK
+    const { openCart, items } = useCart();
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const closeMenu = () => setIsOpen(false);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 flex h-20 items-center justify-between px-6 md:px-12 bg-void/90 backdrop-blur-md border-b border-white/5">
-            <Link href="/" className="group z-50">
-                <span className="font-oswald text-2xl font-bold tracking-widest text-white transition-colors group-hover:text-crimson">
-                    CRIMZON BLADE
-                </span>
-            </Link>
+        <>
+            <nav className="fixed top-0 left-0 right-0 z-50 flex h-20 items-center justify-between px-6 md:px-12 bg-void/90 backdrop-blur-md border-b border-white/5">
+                <Link href="/" className="group z-50">
+                    <span className="font-oswald text-2xl font-bold tracking-widest text-white transition-colors group-hover:text-crimson">
+                        CRIMZON BLADE
+                    </span>
+                </Link>
 
-            {/* DESKTOP NAV */}
-            <div className="hidden md:flex items-center space-x-8">
-                {links.map((link) => {
-                    const isActive = pathname === link.href;
-                    return (
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            className="relative group py-2"
+                {/* DESKTOP NAV */}
+                <div className="hidden md:flex items-center space-x-8">
+                    {links.map((link) => {
+                        const isActive = pathname === link.href;
+                        return (
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                className="relative group py-2"
+                            >
+                                <span className={cn(
+                                    "font-oswald text-sm font-medium tracking-wider transition-colors duration-300",
+                                    isActive ? "text-crimson" : "text-ash group-hover:text-white"
+                                )}>
+                                    {link.name}
+                                </span>
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="navbar-indicator"
+                                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-crimson shadow-[0_0_10px_#8B0000]"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.3 }}
+                                    />
+                                )}
+                            </Link>
+                        );
+                    })}
+
+                    {/* Auth Actions (Desktop) */}
+                    <div className="flex items-center gap-4 pl-4 border-l border-white/10">
+
+                        {/* CART TRIGGER */}
+                        <button
+                            onClick={openCart}
+                            className="relative text-ash hover:text-white transition-colors p-2 mr-2"
+                            aria-label="Open Loadout"
                         >
-                            <span className={cn(
-                                "font-oswald text-sm font-medium tracking-wider transition-colors duration-300",
-                                isActive ? "text-crimson" : "text-ash group-hover:text-white"
-                            )}>
-                                {link.name}
-                            </span>
-                            {isActive && (
-                                <motion.div
-                                    layoutId="navbar-indicator"
-                                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-crimson shadow-[0_0_10px_#8B0000]"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3 }}
-                                />
+                            <IconBag />
+                            {items.length > 0 && (
+                                <span className="absolute top-1 right-0 w-2 h-2 bg-crimson rounded-full shadow-[0_0_5px_#8B0000]"></span>
                             )}
-                        </Link>
-                    );
-                })}
+                        </button>
 
-                {/* Auth Actions (Desktop) */}
-                <div className="flex items-center gap-4 pl-4 border-l border-white/10">
+                        <SignedOut>
+                            <SignInButton mode="modal">
+                                <button className="text-sm font-oswald tracking-widest text-ash hover:text-white uppercase transition-colors">
+                                    Sign In
+                                </button>
+                            </SignInButton>
+                        </SignedOut>
+                        <SignedIn>
+                            <Link href="/account" className={cn(
+                                "font-oswald text-sm font-medium tracking-wider transition-colors duration-300 mr-4",
+                                pathname === "/account" ? "text-crimson" : "text-ash hover:text-white"
+                            )}>
+                                ACCOUNT
+                            </Link>
+                            <UserButton
+                                afterSignOutUrl="/"
+                                appearance={{
+                                    elements: {
+                                        avatarBox: "w-8 h-8 rounded-none border border-white/20 hover:border-crimson transition-colors"
+                                    }
+                                }}
+                            />
+                        </SignedIn>
+                    </div>
+                </div>
 
-                    {/* CART TRIGGER */}
+                {/* MOBILE MENU TRIGGER */}
+                <div className="md:hidden flex items-center gap-4 z-50">
+                    {/* Mobile Cart Trigger */}
                     <button
                         onClick={openCart}
-                        className="relative text-ash hover:text-white transition-colors p-2 mr-2"
+                        className="relative text-white hover:text-crimson transition-colors p-1"
                         aria-label="Open Loadout"
                     >
                         <IconBag />
                         {items.length > 0 && (
-                            <span className="absolute top-1 right-0 w-2 h-2 bg-crimson rounded-full shadow-[0_0_5px_#8B0000]"></span>
+                            <span className="absolute top-0 right-0 w-2 h-2 bg-crimson rounded-full shadow-[0_0_5px_#8B0000]"></span>
                         )}
                     </button>
 
-                    <SignedOut>
-                        <SignInButton mode="modal">
-                            <button className="text-sm font-oswald tracking-widest text-ash hover:text-white uppercase transition-colors">
-                                Sign In
-                            </button>
-                        </SignInButton>
-                    </SignedOut>
-                    <SignedIn>
-                        <Link href="/account" className={cn(
-                            "font-oswald text-sm font-medium tracking-wider transition-colors duration-300 mr-4",
-                            pathname === "/account" ? "text-crimson" : "text-ash hover:text-white"
-                        )}>
-                            ACCOUNT
-                        </Link>
-                        <UserButton
-                            afterSignOutUrl="/"
-                            appearance={{
-                                elements: {
-                                    avatarBox: "w-8 h-8 rounded-none border border-white/20 hover:border-crimson transition-colors"
-                                }
-                            }}
-                        />
-                    </SignedIn>
+                    <button
+                        className="group flex flex-col justify-between h-5 w-8 p-1 ml-2"
+                        onClick={toggleMenu}
+                    >
+                        <div className={cn("w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson", isOpen && "rotate-45 translate-y-1.5")} />
+                        <div className={cn("w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson", isOpen && "opacity-0")} />
+                        <div className={cn("w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson", isOpen && "-rotate-45 -translate-y-1.5")} />
+                    </button>
                 </div>
-            </div>
+            </nav>
 
-            {/* MOBILE MENU TRIGGER */}
-            <div className="md:hidden flex items-center gap-4 z-50">
-                {/* Mobile Cart Trigger */}
-                <button
-                    onClick={openCart}
-                    className="relative text-white hover:text-crimson transition-colors p-1"
-                    aria-label="Open Loadout"
-                >
-                    <IconBag />
-                    {items.length > 0 && (
-                        <span className="absolute top-0 right-0 w-2 h-2 bg-crimson rounded-full shadow-[0_0_5px_#8B0000]"></span>
-                    )}
-                </button>
-
-                <button
-                    className="group flex flex-col justify-between h-5 w-8 p-1 ml-2"
-                    onClick={toggleMenu}
-                >
-                    <div className={cn("w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson", isOpen && "rotate-45 translate-y-1.5")} />
-                    <div className={cn("w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson", isOpen && "opacity-0")} />
-                    <div className={cn("w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson", isOpen && "-rotate-45 -translate-y-1.5")} />
-                </button>
-            </div>
-
-            {/* MOBILE MENU OVERLAY */}
+            {/* MOBILE MENU OVERLAY - MOVED OUTSIDE NAV TO ESCAPE STACKING CONTEXT */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -140,7 +142,7 @@ export function Navbar() {
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
-                        transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.5 }} // Heavy slow easing
+                        transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
                         className="fixed inset-0 bg-[#0B0B0B] z-40 flex flex-col justify-start pt-24 px-8 overflow-y-auto"
                     >
                         <div className="flex flex-col space-y-8 pb-12">
@@ -180,6 +182,6 @@ export function Navbar() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </>
     );
 }
