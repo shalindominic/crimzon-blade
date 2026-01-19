@@ -27,11 +27,18 @@
   --foreground: #ededed;
 }
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  position: relative;
   overflow-y: auto;
 }
 
