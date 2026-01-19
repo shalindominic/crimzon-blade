@@ -6,7 +6,7 @@ import { VaultTeaser } from "@/components/sections/VaultTeaser";
 
 export default function Home() {
   return (
-    <main className="bg-charcoal min-h-screen">
+    <main className="bg-charcoal min-h-[100svh]">
       <Hero />
       <LatestDrop />
       <RaritySystem />
