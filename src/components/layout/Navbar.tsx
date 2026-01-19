@@ -141,9 +141,9 @@ export function Navbar() {
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.5 }} // Heavy slow easing
-                        className="fixed inset-0 bg-[#0B0B0B] z-40 flex flex-col justify-center px-8 overflow-y-auto"
+                        className="fixed inset-0 bg-[#0B0B0B] z-40 flex flex-col justify-start pt-24 px-8 overflow-y-auto"
                     >
-                        <div className="flex flex-col space-y-8">
+                        <div className="flex flex-col space-y-8 pb-12">
                             {links.map((link) => (
                                 <Link
                                     key={link.name}
