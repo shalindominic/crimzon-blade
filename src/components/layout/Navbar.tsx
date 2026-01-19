@@ -165,7 +165,7 @@ export function Navbar() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col"
+                        className="fixed inset-0 z-[100] h-[100dvh] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] bg-black/95 backdrop-blur-xl flex flex-col"
                     >
                         {/* HEADER inside Overlay */}
                         <div className="flex h-20 items-center justify-between px-6 border-b border-white/5 bg-void/50">
@@ -186,53 +186,73 @@ export function Navbar() {
                         {/* MENU CONTENT */}
                         <div className="flex-1 overflow-y-auto px-8 py-12 flex flex-col justify-start space-y-8">
                             <div className="flex flex-col space-y-6">
-                                {links.map((link, i) => (
-                                    <motion.div
-                                        key={link.name}
-                                        initial={{ x: -20, opacity: 0 }}
-                                        animate={{ x: 0, opacity: 1 }}
-                                        transition={{ delay: 0.1 + (i * 0.05), duration: 0.4, ease: "easeOut" }}
-                                    >
-                                        <Link
-                                            href={link.href}
-                                            onClick={closeMenu}
-                                            className="block font-oswald text-4xl sm:text-5xl font-bold tracking-tighter text-white hover:text-crimson uppercase transition-colors"
-                                        >
-                                            {link.name}
-                                        </Link>
-                                    </motion.div>
-                                ))}
+                                <Link
+                                    href="/crimzon"
+                                    onClick={closeMenu}
+                                    className="block font-oswald text-4xl sm:text-5xl font-bold tracking-tighter text-white hover:text-crimson uppercase transition-colors"
+                                >
+                                    CRIMZON
+                                </Link>
+                                <Link
+                                    href="/the-blade"
+                                    onClick={closeMenu}
+                                    className="block font-oswald text-4xl sm:text-5xl font-bold tracking-tighter text-white hover:text-crimson uppercase transition-colors"
+                                >
+                                    THE BLADE
+                                </Link>
+
+                                {/* EXTENDED LINKS (VAULT/DROPS) */}
+                                <Link
+                                    href="/vault"
+                                    onClick={closeMenu}
+                                    className="block font-oswald text-4xl sm:text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors"
+                                >
+                                    VAULT
+                                </Link>
+                                <Link
+                                    href="/drops"
+                                    onClick={closeMenu}
+                                    className="block font-oswald text-4xl sm:text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors"
+                                >
+                                    DROPS
+                                </Link>
                             </div>
 
-                            <div className="w-16 h-[1px] bg-crimson/50 my-6" />
+                            <div className="w-16 h-[1px] bg-crimson/50 my-2" />
 
                             {/* AUTH MOBILE */}
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.4, duration: 0.5 }}
-                                className="flex flex-col space-y-6"
-                            >
+                            <div className="flex flex-col space-y-4">
                                 <SignedOut>
                                     <SignInButton mode="modal">
-                                        <button onClick={closeMenu} className="text-left font-oswald text-2xl text-ash hover:text-white uppercase transition-colors tracking-widest">
+                                        <button onClick={closeMenu} className="text-left font-oswald text-2xl text-white hover:text-crimson uppercase transition-colors tracking-widest">
                                             ENTER SYSTEM / LOGIN
                                         </button>
                                     </SignInButton>
                                 </SignedOut>
 
                                 <SignedIn>
-                                    <Link href="/account" onClick={closeMenu} className="font-oswald text-2xl text-ash hover:text-white uppercase transition-colors tracking-widest">
+                                    <Link href="/account" onClick={closeMenu} className="font-oswald text-2xl text-white hover:text-crimson uppercase transition-colors tracking-widest">
                                         MY PROFILE
                                     </Link>
                                     <button
                                         onClick={() => signOut(() => closeMenu())}
-                                        className="text-left font-oswald text-lg text-crimson hover:text-red-500 uppercase transition-colors mt-2 tracking-widest"
+                                        className="text-left font-oswald text-lg text-ash hover:text-white uppercase transition-colors mt-2 tracking-widest"
                                     >
                                         DISCONNECT
                                     </button>
                                 </SignedIn>
-                            </motion.div>
+                            </div>
+
+                            {/* PRIMARY CTA */}
+                            <div className="pt-4">
+                                <Link
+                                    href="/armory"
+                                    onClick={closeMenu}
+                                    className="inline-block border border-white/20 bg-white/5 py-4 px-8 font-oswald text-2xl text-white hover:bg-crimson hover:border-crimson transition-all tracking-widest uppercase"
+                                >
+                                    ENTER THE ARMORY
+                                </Link>
+                            </div>
                         </div>
 
                         {/* FOOTER DECORATION */}
