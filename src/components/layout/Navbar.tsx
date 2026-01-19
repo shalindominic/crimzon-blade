@@ -136,11 +136,12 @@ export function Navbar() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
+                        key="mobile-menu"
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.5 }} // Heavy slow easing
-                        className="fixed inset-0 bg-void z-40 flex flex-col justify-center px-8"
+                        className="fixed inset-0 bg-void z-40 flex flex-col justify-center px-8 overflow-y-auto"
                     >
                         <div className="flex flex-col space-y-8">
                             {links.map((link) => (
