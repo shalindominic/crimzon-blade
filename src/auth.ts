@@ -2,9 +2,9 @@ import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { z } from "zod"
 
-// Mock user logic for now since DB might not be ready
-// In production, verify against Prisma
-const ADMIN_EMAILS = ["shalindominic1@gmail.com"];
+// Load from Env (support both formats for backward compatibility)
+const adminEnv = process.env.ADMIN_EMAIL || process.env.ADMIN_EMAILS || "shalindominic1@gmail.com";
+const ADMIN_EMAILS = adminEnv.split(",").map(e => e.trim().toLowerCase());
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
@@ -19,19 +19,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     password: z.string().min(1)
                 }).parseAsync(credentials);
 
-                // SIMULATION MODE: 
-                // Since we don't have a DB yet, we simulate a successful login for the admin email
-                // "password" input is just a placeholder for now
-                if (ADMIN_EMAILS.includes(email.toLowerCase())) {
+                const normalizedEmail = email.toLowerCase();
+                console.log(`[AUTH] Attempt: ${normalizedEmail} | Allowed: ${ADMIN_EMAILS.join(", ")}`);
+
+                if (ADMIN_EMAILS.includes(normalizedEmail)) {
                     return {
                         id: "admin-1",
-                        email: email,
+                        email: normalizedEmail,
                         name: "Admin User",
                         role: "admin",
                     };
                 }
 
-                throw new Error("Access Denied");
+                console.log(`[AUTH] Denied: ${normalizedEmail}`);
+                return null; // Return null to trigger standard error
             },
         }),
     ],
