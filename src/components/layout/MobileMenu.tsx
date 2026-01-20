@@ -1,21 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+// Removed createPortal - rendering directly in layout
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { SignInButton, SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { useMenu } from "@/context/MenuContext";
 
 const IconClose = () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 );
 
-interface MobileMenuProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileMenu() {
+    const { isOpen, closeMenu } = useMenu();
     const { signOut } = useClerk();
     const [mounted, setMounted] = useState(false);
 
@@ -29,23 +26,23 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         if (isOpen) {
             document.body.style.overflow = "hidden";
         } else {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = "";
         }
-        return () => { document.body.style.overflow = "unset"; };
+        return () => { document.body.style.overflow = ""; };
     }, [isOpen]);
 
     // Close on Escape
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
-            if (e.key === "Escape") onClose();
+            if (e.key === "Escape") closeMenu();
         };
         window.addEventListener("keydown", handleEsc);
         return () => window.removeEventListener("keydown", handleEsc);
-    }, [onClose]);
+    }, [closeMenu]);
 
     if (!mounted) return null;
 
-    return createPortal(
+    return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
@@ -53,21 +50,17 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl flex flex-col text-white h-[100svh] overflow-y-auto overscroll-contain"
-                    style={{
-                        paddingTop: "env(safe-area-inset-top)",
-                        paddingBottom: "env(safe-area-inset-bottom)",
-                    }}
+                    className="fixed inset-0 z-[9999] bg-black text-white h-[100svh] w-screen overflow-y-auto overscroll-contain"
                 >
                     {/* SCROLLABLE CONTENT WRAPPER */}
                     <div className="flex flex-col w-full min-h-full">
                         {/* STICKY HEADER */}
-                        <header className="sticky top-0 z-[60] flex h-20 items-center justify-between px-6 bg-black/80 backdrop-blur-md border-b border-white/10 shrink-0">
+                        <header className="sticky top-0 z-[60] flex h-20 items-center justify-between px-6 bg-black border-b border-white/10 shrink-0">
                             <span className="font-oswald text-xl font-bold tracking-widest uppercase">
                                 Crimzon Blade
                             </span>
                             <button
-                                onClick={onClose}
+                                onClick={closeMenu}
                                 className="p-2 -mr-2 text-white hover:text-crimson transition-colors"
                                 aria-label="Close Menu"
                             >
@@ -81,28 +74,28 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                 <div className="flex flex-col w-full gap-y-6">
                                     <Link
                                         href="/crimzon"
-                                        onClick={onClose}
+                                        onClick={closeMenu}
                                         className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
                                     >
                                         CRIMZON
                                     </Link>
                                     <Link
                                         href="/the-blade"
-                                        onClick={onClose}
+                                        onClick={closeMenu}
                                         className="block font-oswald text-5xl font-bold tracking-tighter hover:text-crimson uppercase transition-colors shrink-0"
                                     >
                                         THE BLADE
                                     </Link>
                                     <Link
                                         href="/vault"
-                                        onClick={onClose}
+                                        onClick={closeMenu}
                                         className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
                                     >
                                         VAULT
                                     </Link>
                                     <Link
                                         href="/drops"
-                                        onClick={onClose}
+                                        onClick={closeMenu}
                                         className="block font-oswald text-5xl font-bold tracking-tighter text-ash hover:text-white uppercase transition-colors shrink-0"
                                     >
                                         DROPS
@@ -115,18 +108,18 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                 <div className="flex flex-col w-full gap-y-6">
                                     <SignedOut>
                                         <SignInButton mode="modal">
-                                            <button onClick={onClose} className="text-left font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
+                                            <button onClick={closeMenu} className="text-left font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
                                                 ENTER SYSTEM / LOGIN
                                             </button>
                                         </SignInButton>
                                     </SignedOut>
 
                                     <SignedIn>
-                                        <Link href="/account" onClick={onClose} className="block font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
+                                        <Link href="/account" onClick={closeMenu} className="block font-oswald text-2xl tracking-widest hover:text-crimson uppercase transition-colors shrink-0">
                                             MY PROFILE
                                         </Link>
                                         <button
-                                            onClick={() => signOut(() => onClose())}
+                                            onClick={() => signOut(() => closeMenu())}
                                             className="text-left font-oswald text-lg text-ash hover:text-white uppercase transition-colors tracking-widest shrink-0"
                                         >
                                             DISCONNECT
@@ -138,7 +131,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                 <div className="pt-8 pb-12 shrink-0">
                                     <Link
                                         href="/armory"
-                                        onClick={onClose}
+                                        onClick={closeMenu}
                                         className="block w-full text-center border border-white/20 bg-white/5 py-5 font-oswald text-2xl tracking-widest hover:bg-crimson hover:border-crimson transition-all uppercase"
                                     >
                                         ENTER THE ARMORY
@@ -154,7 +147,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     </div>
                 </motion.div>
             )}
-        </AnimatePresence>,
-        document.body
+        </AnimatePresence>
     );
 }

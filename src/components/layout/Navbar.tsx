@@ -8,7 +8,8 @@ import { SignInButton, SignedIn, SignedOut, UserButton, useClerk } from "@clerk/
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 
-import { MobileMenu } from "./MobileMenu";
+// MobileMenu removed
+
 
 const links = [
     { name: "ARMORY", href: "/armory" },
@@ -22,14 +23,16 @@ const IconBag = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
 );
 
+import { useMenu } from "@/context/MenuContext";
+
 export function Navbar() {
     const pathname = usePathname();
-    const [isOpen, setIsOpen] = useState(false);
+    const { toggleMenu } = useMenu();
     const { signOut } = useClerk();
     const { openCart, items } = useCart();
 
-    const toggleMenu = () => setIsOpen(!isOpen);
-    const closeMenu = () => setIsOpen(false);
+    // Local state removed
+
 
     return (
         <>
@@ -135,7 +138,8 @@ export function Navbar() {
                 </div>
             </nav>
 
-            <MobileMenu isOpen={isOpen} onClose={closeMenu} />
+            {/* MobileMenu moved to layout */}
+
         </>
     );
 }

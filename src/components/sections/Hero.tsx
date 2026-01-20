@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function Hero() {
     return (
-        <section className="relative w-full h-auto py-32 md:h-screen md:py-0 flex flex-col items-center justify-center overflow-hidden bg-charcoal">
+        <section className="relative w-full py-32 min-h-[100svh] md:min-h-screen md:py-0 flex flex-col items-center justify-center overflow-hidden bg-charcoal">
             {/* Background Ambience */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-900/50 via-charcoal to-charcoal z-0" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-crimson/5 blur-[120px] rounded-full z-0 opacity-50 animate-pulse" />
