@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/shop/ProductCard";
 import { useState } from "react";
 import { useUnlocks } from "@/context/UnlockContext";
 import CodeEntryModal from "@/components/CodeEntryModal";
-import { COLLECTIONS } from "@/lib/collections";
+import { DROP_METADATA } from "@/lib/drops";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ArmoryClient({ products }: { products: any[] }) {
@@ -53,8 +53,8 @@ export function ArmoryClient({ products }: { products: any[] }) {
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {unlocked.map((id) => {
-                            // Find the collection info from the ID (reverse lookup or safe access)
-                            const collection = Object.values(COLLECTIONS).find(c => c.id === id);
+                            // Find the collection info from the ID
+                            const collection = DROP_METADATA[id];
                             return (
                                 <div
                                     key={id}
