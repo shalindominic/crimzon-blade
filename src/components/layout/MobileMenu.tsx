@@ -28,13 +28,13 @@ export default function MobileMenu() {
 
     return (
         <Portal>
-            <div className="fixed inset-0 z-[99999] h-[100svh] bg-black text-white overflow-y-auto overscroll-contain">
+            <div className="fixed inset-0 z-[99999] h-[100svh] bg-black text-[#EDEDED] overflow-y-auto overscroll-contain">
                 {/* Header */}
-                <div className="sticky top-0 z-[60] flex items-center justify-between px-6 py-4 bg-black border-b border-white/10">
-                    <span className="font-oswald font-bold tracking-widest text-xl">CRIMZON BLADE</span>
+                <div className="sticky top-0 z-[60] flex items-center justify-between px-6 py-5 bg-black border-b border-[#8B0000]/30">
+                    <span className="font-oswald font-bold tracking-[0.35em] text-sm">CRIMZON BLADE</span>
                     <button
                         onClick={() => setOpen(false)}
-                        className="text-2xl p-2 -mr-2 text-white hover:text-crimson transition-colors"
+                        className="text-xl p-2 -mr-2 text-[#EDEDED] hover:text-[#8B0000] transition-colors"
                         aria-label="Close menu"
                     >
                         ✕
@@ -42,27 +42,27 @@ export default function MobileMenu() {
                 </div>
 
                 {/* Menu */}
-                <nav className="flex flex-col px-6 py-10 font-oswald tracking-widest">
-                    <div className="flex flex-col gap-6 text-2xl">
-                        <Link href="/crimzon" onClick={() => setOpen(false)} className="hover:text-crimson transition-colors">CRIMZON</Link>
-                        <Link href="/the-blade" onClick={() => setOpen(false)} className="hover:text-crimson transition-colors">THE BLADE</Link>
-                        <Link href="/vault" onClick={() => setOpen(false)} className="hover:text-crimson transition-colors">VAULT</Link>
-                        <Link href="/drops" onClick={() => setOpen(false)} className="hover:text-crimson transition-colors">DROPS</Link>
-                    </div>
+                <nav className="flex flex-col gap-10 px-6 py-16 font-oswald tracking-[0.3em] text-sm">
+                    <Link href="/crimzon" onClick={() => setOpen(false)} className="hover:text-[#8B0000] transition-colors">CRIMZON</Link>
+                    <Link href="/the-blade" onClick={() => setOpen(false)} className="hover:text-[#8B0000] transition-colors">THE BLADE</Link>
+                    <Link href="/vault" onClick={() => setOpen(false)} className="hover:text-[#8B0000] transition-colors">VAULT</Link>
+                    <Link href="/drops" onClick={() => setOpen(false)} className="hover:text-[#8B0000] transition-colors">DROPS</Link>
 
-                    <div className="w-16 h-[1px] bg-crimson/50 my-8"></div>
+
+                    <div className="h-px bg-[#8B0000]/30 my-6"></div>
+
 
                     <div className="flex flex-col gap-6 text-xl">
                         <SignedOut>
                             <SignInButton mode="modal">
-                                <button onClick={() => setOpen(false)} className="text-left hover:text-crimson transition-colors">
+                                <button onClick={() => setOpen(false)} className="text-left hover:text-[#8B0000] transition-colors">
                                     LOGIN
                                 </button>
                             </SignInButton>
                         </SignedOut>
                         <SignedIn>
-                            <Link href="/account" onClick={() => setOpen(false)} className="hover:text-crimson transition-colors">ACCOUNT</Link>
-                            <button onClick={() => signOut(() => setOpen(false))} className="text-left text-ash hover:text-white transition-colors">
+                            <Link href="/account" onClick={() => setOpen(false)} className="hover:text-[#8B0000] transition-colors">ACCOUNT</Link>
+                            <button onClick={() => signOut(() => setOpen(false))} className="text-left text-[#777777] hover:text-[#EDEDED] transition-colors">
                                 SIGNOUT
                             </button>
                         </SignedIn>
@@ -71,7 +71,7 @@ export default function MobileMenu() {
                     <Link
                         href="/armory"
                         onClick={() => setOpen(false)}
-                        className="mt-10 border border-white/20 bg-white/5 px-6 py-4 text-center text-xl hover:bg-crimson hover:border-crimson transition-colors"
+                        className="mt-6 border border-[#8B0000] px-6 py-5 text-center tracking-[0.35em] text-[#EDEDED] hover:bg-[#8B0000] hover:text-black transition-colors"
                     >
                         ENTER THE ARMORY
                     </Link>
