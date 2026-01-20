@@ -15,7 +15,7 @@ export function GeneratorForm() {
         if (result.success) {
             setStatus(`CODE FORGED: ${result.code}`);
         } else {
-            setStatus("FORGE FAILED");
+            setStatus(`FORGE FAILED: ${result.error}`);
         }
     };
 

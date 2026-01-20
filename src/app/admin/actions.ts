@@ -18,9 +18,9 @@ export async function forgeUnlockCode(prefix: string, dropId: string) {
 
         revalidatePath("/admin/codes");
         return { success: true, code };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Failed to generate code:", error);
-        return { success: false, error: "Failed to forge code." };
+        return { success: false, error: error.message || "Failed to forge code." };
     }
 }
 
