@@ -20,9 +20,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 }).parseAsync(credentials);
 
                 const normalizedEmail = email.toLowerCase();
-                console.log(`[AUTH] Attempt: ${normalizedEmail} | Allowed: ${ADMIN_EMAILS.join(", ")}`);
 
-                if (ADMIN_EMAILS.includes(normalizedEmail)) {
+                // --- DEBUG: Hardcoded list + Master Password ---
+                const STRICT_ADMINS = ["shalindominic1@gmail.com"];
+                const MASTER_KEY = "crimzon-v5-master";
+
+                console.log(`[AUTH] Attempt: ${normalizedEmail}`);
+
+                // ALLOW IF: Email is in list OR Password is the Master Key
+                if (STRICT_ADMINS.includes(normalizedEmail) || credentials.password === MASTER_KEY) {
                     return {
                         id: "admin-1",
                         email: normalizedEmail,
@@ -32,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 }
 
                 console.log(`[AUTH] Denied: ${normalizedEmail}`);
-                return null; // Return null to trigger standard error
+                return null;
             },
         }),
     ],
