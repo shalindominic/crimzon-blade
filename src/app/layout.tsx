@@ -9,6 +9,8 @@ import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import MobileMenu from "@/components/layout/MobileMenu";
+import { UnlockProvider } from "@/context/UnlockContext";
+
 
 
 
@@ -49,15 +51,18 @@ export default function RootLayout({
           suppressHydrationWarning
         >
           <CartProvider>
-            <Navbar />
-            <CartDrawer />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
-            <SpeedInsights />
-            <MobileMenu />
+            <UnlockProvider>
+              <Navbar />
+              <CartDrawer />
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+              <SpeedInsights />
+              <MobileMenu />
+            </UnlockProvider>
           </CartProvider>
+
 
 
 
