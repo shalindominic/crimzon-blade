@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { COLLECTIONS } from "@/lib/collections";
 import { useUnlocks } from "@/context/UnlockContext";
 import Portal from "@/components/Portal";
 
