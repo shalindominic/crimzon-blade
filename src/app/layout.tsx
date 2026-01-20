@@ -8,6 +8,8 @@ import { dark } from "@clerk/themes";
 import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import MobileMenu from "@/components/layout/MobileMenu";
+
 
 
 
@@ -54,7 +56,9 @@ export default function RootLayout({
             </main>
             <Footer />
             <SpeedInsights />
+            <MobileMenu />
           </CartProvider>
+
 
 
         </body>

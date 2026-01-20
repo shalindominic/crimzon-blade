@@ -126,12 +126,17 @@ export function Navbar() {
                         )}
                     </button>
 
+                    <button
+                        id="open-menu"
+                        className="md:hidden flex flex-col justify-between h-5 w-8 p-1 ml-2 group"
+                        aria-label="Open Menu"
+                    >
+                        <div className="w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson" />
+                        <div className="w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson" />
+                        <div className="w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson" />
+                    </button>
                 </div>
-
             </nav>
-
-            {/* MobileMenu moved to layout */}
-
         </>
     );
 }
