@@ -1,45 +1,45 @@
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { groq } from "next-sanity";
+import prisma from "@/lib/prisma";
 import { UsersClient } from "./UsersClient";
 
 export const dynamic = 'force-dynamic';
 
-interface UserUnlockDoc {
-    _id: string;
-    userId: string;
-    itemId: string;
-    unlockedAt: string;
-    source: string;
-}
-
 export default async function UsersPage() {
-    // 1. Fetch all user unlocks
-    const unlocks = await sanityFetch<UserUnlockDoc[]>({
-        query: groq`*[_type == "userUnlock"] | order(unlockedAt desc)`
-    });
+    let profiles: any[] = [];
+    let drops: any[] = [];
 
-    // 2. Fetch drop details for display names
-    const drops = await sanityFetch<any[]>({
-        query: groq`*[_type == "drop"] { _id, title }`
-    });
+    try {
+        const [users, allDrops] = await Promise.all([
+            // In V5, User is the main entity. We fetch users and their unlocks.
+            // But UserUnlock also links user to drop. 
+            prisma.user.findMany({
+                include: {
+                    unlocks: {
+                        include: { drop: { select: { title: true } } },
+                        orderBy: { unlockedAt: 'desc' },
+                    }
+                },
+                orderBy: { createdAt: 'desc' },
+                take: 100 // Safety limit
+            }),
+            prisma.drop.findMany({ select: { id: true, title: true } })
+        ]);
 
-    // 3. Group by User ID to form profiles
-    const profilesMap = new Map<string, UserUnlockDoc[]>();
+        profiles = users.map(u => ({
+            userId: u.id,
+            email: u.email,
+            unlocks: u.unlocks.map(ul => ({
+                id: ul.id,
+                title: ul.drop.title,
+                unlockedAt: ul.unlockedAt.toISOString(),
+                source: ul.source
+            }))
+        }));
 
-    unlocks.forEach(u => {
-        if (!profilesMap.has(u.userId)) {
-            profilesMap.set(u.userId, []);
-        }
-        profilesMap.get(u.userId)?.push(u);
-    });
+        drops = allDrops;
 
-    // Convert to array
-    const profiles = Array.from(profilesMap.entries()).map(([userId, userUnlocks]) => ({
-        userId,
-        unlocks: userUnlocks
-    }));
+    } catch (e) {
+        console.error("DB Error:", e);
+    }
 
-    return (
-        <UsersClient profiles={profiles} drops={drops} />
-    );
+    return <UsersClient profiles={profiles} drops={drops} />;
 }

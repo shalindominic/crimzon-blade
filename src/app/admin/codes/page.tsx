@@ -1,31 +1,40 @@
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { groq } from "next-sanity";
+import prisma from "@/lib/prisma";
 import { ForgeClient } from "./ForgeClient";
 import { CodesTable } from "./CodesTable";
 
+// Force dynamic
 export const dynamic = 'force-dynamic';
 
 export default async function CodesPage() {
-    // Fetch Drops (for Forge) and Codes (for Table)
-    const [drops, codes] = await Promise.all([
-        sanityFetch<any[]>({ query: groq`*[_type == "drop"] { _id, title, status }` }),
-        sanityFetch<any[]>({ query: groq`*[_type == "unlockCode"] | order(_createdAt desc)` })
-    ]);
+    let drops: any[] = [];
+    let codes: any[] = [];
 
-    // Create a map of Drop ID -> Title for easy lookup in table
+    try {
+        [drops, codes] = await Promise.all([
+            prisma.drop.findMany({
+                select: { id: true, title: true, status: true },
+                orderBy: { dropDate: 'desc' }
+            }),
+            prisma.unlockCode.findMany({
+                orderBy: { createdAt: 'desc' },
+                include: { drop: { select: { title: true } }, user: { select: { email: true, id: true } } }
+            })
+        ]);
+    } catch (e) {
+        console.error("DB Error:", e);
+    }
+
+    // Map drop title for table
     const dropMap = drops.reduce((acc, drop) => {
-        acc[drop._id] = drop.title;
+        acc[drop.id] = drop.title;
         return acc;
     }, {} as Record<string, string>);
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[calc(100vh-140px)]">
-            {/* LEFT: FORGE */}
             <div className="h-full">
                 <ForgeClient drops={drops} />
             </div>
-
-            {/* RIGHT: TABLE */}
             <div className="lg:col-span-2 h-full">
                 <CodesTable codes={codes} dropMap={dropMap} />
             </div>

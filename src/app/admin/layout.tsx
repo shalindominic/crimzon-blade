@@ -1,11 +1,20 @@
-import { checkAdmin } from "@/lib/admin";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import "@/app/globals.css";
 
+// Force Next.js to not cache admin layout to ensure auth checks run
+export const dynamic = 'force-dynamic';
+
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-    // 1. Strict Security Check
-    await checkAdmin();
+    const session = await auth();
+
+    // Strict Role Check
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!session?.user || (session.user as any).role !== 'admin') {
+        redirect("/auth/signin");
+    }
 
     return (
         <div className="min-h-screen bg-black text-[#EDEDED] flex font-sans selection:bg-[#8B0000] selection:text-white">

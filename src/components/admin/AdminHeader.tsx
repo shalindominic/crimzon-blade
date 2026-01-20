@@ -1,11 +1,12 @@
 "use client";
 
-import { UserButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
+import { IconLogout } from "@tabler/icons-react";
 
 export function AdminHeader() {
     const pathname = usePathname();
-    const { user } = useUser();
+    const { data: session } = useSession();
 
     // Get current section name from path
     const section = pathname.split("/")[2]?.toUpperCase() || "DASHBOARD";
@@ -17,7 +18,7 @@ export function AdminHeader() {
                     {section}
                 </h1>
                 <p className="font-mono text-[10px] text-[#8B0000] tracking-widest mt-1">
-                    SYS.OP: {user?.firstName?.toUpperCase() || "ADMIN"}
+                    SYS.OP: {session?.user?.name?.toUpperCase() || session?.user?.email?.split('@')[0].toUpperCase() || "UNKNOWN"}
                 </p>
             </div>
 
@@ -30,12 +31,16 @@ export function AdminHeader() {
                         {new Date().toLocaleTimeString('en-US', { hour12: false })}
                     </p>
                 </div>
+
                 <div className="h-8 w-px bg-white/10 mx-2" />
-                <UserButton appearance={{
-                    elements: {
-                        avatarBox: "w-10 h-10 border border-[#8B0000]/50 rounded-none"
-                    }
-                }} />
+
+                <button
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="flex items-center gap-2 px-4 py-2 border border-[#8B0000]/30 hover:bg-[#8B0000] hover:text-black transition-colors font-mono text-xs uppercase tracking-widest text-white group"
+                >
+                    <IconLogout size={16} />
+                    <span className="hidden sm:inline">Abort</span>
+                </button>
             </div>
         </header>
     );
