@@ -8,8 +8,7 @@ import { dark } from "@clerk/themes";
 import { CartProvider } from "@/context/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { MenuProvider } from "@/context/MenuContext";
-import { MobileMenu } from "@/components/layout/MobileMenu";
+
 
 
 const inter = Inter({
@@ -48,17 +47,15 @@ export default function RootLayout({
           suppressHydrationWarning
         >
           <CartProvider>
-            <MenuProvider>
-              <Navbar />
-              <CartDrawer />
-              <main className="flex-grow">
-                {children}
-              </main>
-              <MobileMenu />
-              <Footer />
-              <SpeedInsights />
-            </MenuProvider>
+            <Navbar />
+            <CartDrawer />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+            <SpeedInsights />
           </CartProvider>
+
 
         </body>
       </html>

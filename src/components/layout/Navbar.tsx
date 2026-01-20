@@ -23,12 +23,12 @@ const IconBag = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
 );
 
-import { useMenu } from "@/context/MenuContext";
 
 export function Navbar() {
+
     const pathname = usePathname();
-    const { toggleMenu } = useMenu();
     const { signOut } = useClerk();
+
     const { openCart, items } = useCart();
 
     // Local state removed
@@ -126,16 +126,8 @@ export function Navbar() {
                         )}
                     </button>
 
-                    <button
-                        className="group flex flex-col justify-between h-5 w-8 p-1 ml-2"
-                        onClick={toggleMenu}
-                        aria-label="Open Menu"
-                    >
-                        <div className="w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson" />
-                        <div className="w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson" />
-                        <div className="w-full h-[2px] bg-white transition-all duration-300 group-hover:bg-crimson" />
-                    </button>
                 </div>
+
             </nav>
 
             {/* MobileMenu moved to layout */}
