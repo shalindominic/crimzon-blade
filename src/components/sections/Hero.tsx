@@ -3,8 +3,52 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export function Hero() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    if (isMobile) {
+        return (
+            <section className="relative w-full py-32 min-h-fit flex flex-col items-center justify-center overflow-visible bg-charcoal">
+                {/* Background Ambience */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-900/50 via-charcoal to-charcoal z-0" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-crimson/5 blur-[120px] rounded-full z-0 opacity-50" />
+
+                {/* Content - NO MOTION */}
+                <div className="relative z-10 flex flex-col items-center text-center space-y-8">
+                    <div>
+                        <h1 className="font-oswald text-5xl font-bold tracking-tighter text-white uppercase leading-none">
+                            Crimzon <span className="text-crimson">Blade</span>
+                        </h1>
+                    </div>
+
+                    <p className="font-sans text-gray-400 tracking-[0.3em] uppercase text-sm">
+                        Forged in Silence
+                    </p>
+
+                    <div>
+                        <Link href="/armory">
+                            <Button size="lg" variant="outline" className="mt-8 border-white/10 hover:border-crimson/50 hover:bg-crimson/10">
+                                Enter The Armory
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Grid overlay for texture */}
+                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] z-0 pointer-events-none" />
+            </section>
+        );
+    }
+
     return (
         <section className="relative w-full py-32 min-h-[100svh] md:min-h-screen md:py-0 flex flex-col items-center justify-center overflow-hidden bg-charcoal">
             {/* Background Ambience */}
