@@ -3,22 +3,17 @@
 import { writeClient } from "@/sanity/lib/client";
 import { revalidatePath } from "next/cache";
 
-export async function generateClaimCode(prefix: string, product: string, edition: string) {
+export async function forgeUnlockCode(prefix: string, dropId: string) {
     try {
         const timestamp = Date.now().toString().slice(-4);
         const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
         const code = `${prefix}-${timestamp}-${randomStr}`;
 
         await writeClient.create({
-            _type: "claimCode",
+            _type: "unlockCode",
             code,
-            product: {
-                _type: 'reference',
-                _ref: product,
-            },
-            edition,
-            status: "active",
-            createdAt: new Date().toISOString(),
+            drop: dropId,
+            used: false,
         });
 
         revalidatePath("/admin/codes");

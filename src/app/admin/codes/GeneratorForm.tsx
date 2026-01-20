@@ -1,18 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { generateClaimCode } from "../actions";
+import { forgeUnlockCode } from "../actions";
+import { DROP_METADATA } from "@/lib/drops";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function GeneratorForm({ products }: { products: any[] }) {
+export function GeneratorForm() {
     const [prefix, setPrefix] = useState("CRIMZON");
-    const [selectedProduct, setSelectedProduct] = useState(products[0]?._id || "");
-    const [edition, setEdition] = useState("Standard Issue");
+    const [selectedDrop, setSelectedDrop] = useState(Object.keys(DROP_METADATA)[0] || "");
     const [status, setStatus] = useState<string | null>(null);
 
     const handleForge = async () => {
         setStatus("FORGING...");
-        const result = await generateClaimCode(prefix, selectedProduct, edition);
+        const result = await forgeUnlockCode(prefix, selectedDrop);
         if (result.success) {
             setStatus(`CODE FORGED: ${result.code}`);
         } else {
@@ -22,7 +21,7 @@ export function GeneratorForm({ products }: { products: any[] }) {
 
     return (
         <div className="bg-black/40 border border-white/5 p-8 max-w-lg">
-            <h2 className="font-oswald text-2xl uppercase tracking-wider mb-6 text-white">Forge New Code</h2>
+            <h2 className="font-oswald text-2xl uppercase tracking-wider mb-6 text-white">Forge Unlock Code (V3)</h2>
 
             <div className="space-y-4">
                 <div>
@@ -36,26 +35,18 @@ export function GeneratorForm({ products }: { products: any[] }) {
                 </div>
 
                 <div>
-                    <label className="block text-xs font-mono text-gray-500 uppercase mb-1">Target Artifact</label>
+                    <label className="block text-xs font-mono text-gray-500 uppercase mb-1">Target Drop</label>
                     <select
-                        value={selectedProduct}
-                        onChange={(e) => setSelectedProduct(e.target.value)}
+                        value={selectedDrop}
+                        onChange={(e) => setSelectedDrop(e.target.value)}
                         className="w-full bg-black border border-white/20 p-3 text-white font-mono focus:border-crimson outline-none"
                     >
-                        {products.map(p => (
-                            <option key={p._id} value={p._id}>{p.name}</option>
+                        {Object.entries(DROP_METADATA).map(([id, meta]) => (
+                            <option key={id} value={id}>
+                                {meta.name} [{meta.rarity}]
+                            </option>
                         ))}
                     </select>
-                </div>
-
-                <div>
-                    <label className="block text-xs font-mono text-gray-500 uppercase mb-1">Edition Tag</label>
-                    <input
-                        type="text"
-                        value={edition}
-                        onChange={(e) => setEdition(e.target.value)}
-                        className="w-full bg-black border border-white/20 p-3 text-white font-mono focus:border-crimson outline-none"
-                    />
                 </div>
 
                 <button
